@@ -95,7 +95,7 @@
                 incredible human achievement zooming across the starry canvas. With the help of this interactive globe,
                 you can even track its real-time position and feel a little closer to the wonders of space exploration.
             </p>
-            <p id="dynamicContent"></p>
+            <p id="astronautDynamicContent"></p>
         </div>
     </div>
 
@@ -163,7 +163,7 @@
         
 
         // Function to fetch and update dynamic content
-        async function updateDynamicContent() {
+        async function updateAstronautDynamicContent() {
             //const astronautsResponse = await fetch('http://api.open-notify.org/astros.json');
             const astronautsResponse = await fetch('/.netlify/functions/astros');
 
@@ -171,17 +171,16 @@
             const astronauts = astronautsData.people.map(person => `${person.name} (${person.craft})`).join(', ');
 
             // Update dynamic content
-            document.getElementById('dynamicContent').innerHTML = `
+            document.getElementById('astronautDynamicContent').innerHTML = `
                 <p style='bold'>Astronauts currently in space:</p>
                 <p>${astronauts}</p>
             `;
         }
 
         setInterval(fetchISSLocation, 10000);
-        setInterval(updateDynamicContent, 30000);
 
         fetchISSLocation();
-        updateDynamicContent();
+        updateAstronautDynamicContent();
     </script>
 </body>
 
