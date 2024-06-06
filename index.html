@@ -163,7 +163,9 @@
 
         // Function to fetch and update dynamic content
         async function updateDynamicContent() {
-            const astronautsResponse = await fetch('http://api.open-notify.org/astros.json');
+            //const astronautsResponse = await fetch('http://api.open-notify.org/astros.json');
+            const astronautsResponse = await fetch('/.netlify/functions/issNow');
+            
             const astronautsData = await astronautsResponse.json();
             const astronauts = astronautsData.people.map(person => `${person.name} (${person.craft})`).join(', ');
 
