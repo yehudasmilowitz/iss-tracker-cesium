@@ -66,7 +66,7 @@ async function updateAstronautDynamicContent() {
     const astronauts = astronautsData.people.map(person => `${person.name} (${person.craft})`).join(', ');
 
     document.getElementById('astronautDynamicContent').innerHTML = `
-                <p style='bold'>Astronauts currently in space:</p>
+                <p>Astronauts currently in space:</p>
                 <p>${astronauts}</p>
             `;
 }
