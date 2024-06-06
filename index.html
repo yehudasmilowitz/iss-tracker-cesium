@@ -128,7 +128,8 @@
         const positionProperty = new Cesium.SampledPositionProperty();
 
         async function fetchISSLocation() {
-            const response = await fetch('http://api.open-notify.org/iss-now.json');
+            //const response = await fetch('http://api.open-notify.org/iss-now.json');
+            const response = await fetch('/.netlify/functions/issNow');
             const data = await response.json();
             const latitude = parseFloat(data.iss_position.latitude);
             const longitude = parseFloat(data.iss_position.longitude);
@@ -163,8 +164,7 @@
 
         // Function to fetch and update dynamic content
         async function updateDynamicContent() {
-            //const astronautsResponse = await fetch('http://api.open-notify.org/astros.json');
-            const astronautsResponse = await fetch('/.netlify/functions/issNow');
+            const astronautsResponse = await fetch('http://api.open-notify.org/astros.json');
             
             const astronautsData = await astronautsResponse.json();
             const astronauts = astronautsData.people.map(person => `${person.name} (${person.craft})`).join(', ');
@@ -176,7 +176,7 @@
             `;
         }
 
-        setInterval(fetchISSLocation, 5000);
+        setInterval(fetchISSLocation, 10000);
         setInterval(updateDynamicContent, 30000);
 
         fetchISSLocation();
