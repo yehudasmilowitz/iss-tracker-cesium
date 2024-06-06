@@ -95,6 +95,7 @@
                 incredible human achievement zooming across the starry canvas. With the help of this interactive globe,
                 you can even track its real-time position and feel a little closer to the wonders of space exploration.
             </p>
+            <p id="dynamicContent"></p>
         </div>
     </div>
 
@@ -158,11 +159,26 @@
             });
         }
 
-        // Poll the ISS location every 5 seconds
-        setInterval(fetchISSLocation, 5000);
+        
 
-        // Fetch the initial location
+        // Function to fetch and update dynamic content
+        async function updateDynamicContent() {
+            const astronautsResponse = await fetch('http://api.open-notify.org/astros.json');
+            const astronautsData = await astronautsResponse.json();
+            const astronauts = astronautsData.people.map(person => `${person.name} (${person.craft})`).join(', ');
+
+            // Update dynamic content
+            document.getElementById('dynamicContent').innerHTML = `
+                <p style='bold'>Astronauts currently in space:</p>
+                <p>${astronauts}</p>
+            `;
+        }
+
+        setInterval(fetchISSLocation, 5000);
+        setInterval(updateDynamicContent, 30000);
+
         fetchISSLocation();
+        updateDynamicContent();
     </script>
 </body>
 
