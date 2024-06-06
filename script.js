@@ -74,10 +74,8 @@ async function updateAstronautDynamicContent() {
                 <p>${astronauts}</p>
             `;
 }
-
-setInterval(fetchISSLocation, 10000);
-
-document.addEventListener("DOMContentLoaded", function() {
+setTimeout(() => {
     fetchISSLocation();
     updateAstronautDynamicContent();
-})
+}, "3000");
+setInterval(fetchISSLocation, 10000);
