@@ -58,9 +58,6 @@ async function fetchISSLocation() {
     });
 }
 
-
-
-// Function to fetch and update dynamic content
 async function updateAstronautDynamicContent() {
     //const astronautsResponse = await fetch('http://api.open-notify.org/astros.json');
     const astronautsResponse = await fetch('/.netlify/functions/astros');
@@ -68,12 +65,12 @@ async function updateAstronautDynamicContent() {
     const astronautsData = await astronautsResponse.json();
     const astronauts = astronautsData.people.map(person => `${person.name} (${person.craft})`).join(', ');
 
-    // Update dynamic content
     document.getElementById('astronautDynamicContent').innerHTML = `
                 <p style='bold'>Astronauts currently in space:</p>
                 <p>${astronauts}</p>
             `;
 }
+
 setTimeout(() => {
     fetchISSLocation();
     updateAstronautDynamicContent();
