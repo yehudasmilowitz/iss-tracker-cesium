@@ -29,7 +29,7 @@ async function fetchISSLocation() {
     //const response = await fetch('https://api.wheretheiss.at/v1/satellites/25544');
     const response = await fetch('/.netlify/functions/issNow');
     const data = await response.json();
-    //updateLocationDataDiv(data);
+    updateLocationDataDiv(data);
     const latitude = parseFloat(data.iss_position.latitude);
     const longitude = parseFloat(data.iss_position.longitude);
     const position = Cesium.Cartesian3.fromDegrees(longitude, latitude, 400000); // Approximate ISS altitude in meters
@@ -65,11 +65,8 @@ const updateLocationDataDiv = (data) => {
 
     locationInfoBoxContent.innerHTML = `
     <p>
-        <span style="display: block;">Latitude: ${data.latitude.toFixed(6)}</span>
-        <span style="display: block;">Longitude: ${data.longitude.toFixed(6)}</span>
-        <span style="display: block;">Altitude: ${data.altitude.toFixed(2)} km</span>
-        <span style="display: block;">Velocity: ${data.velocity.toFixed(2)} km/h</span>
-        <span style="display: block;">Visibility: ${data.visibility}</span>
+        <span style="display: block;">Latitude: ${parseFloat(data.iss_position.latitude).toFixed(6)}</span>
+        <span style="display: block;">Longitude: ${parseFloat(data.iss_position.longitude).toFixed(6)}</span>
         <span style="display: block;">Timestamp: ${new Date(data.timestamp * 1000).toUTCString()}</span>
     </p>
     `;
