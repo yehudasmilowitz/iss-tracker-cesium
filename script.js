@@ -1,7 +1,7 @@
 Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI1NmYzNGVhOC02MTkzLTQ3MWMtYmVhNC0zZGU4YjI5MWRiM2EiLCJpZCI6MjIwNDIwLCJpYXQiOjE3MTc2NDA5NzJ9.3PEp4J2fXfyDKc4VLf0_wuTyL3khGRmyUzh0vosC4TA';
 
 const viewer = new Cesium.Viewer('cesiumContainer', {
-    terrain: Cesium.Terrain.fromWorldTerrain(),
+    imageryProvider: false,
     baseLayerPicker: false,
     geocoder: false,
     homeButton: false,
@@ -13,6 +13,10 @@ const viewer = new Cesium.Viewer('cesiumContainer', {
     infoBox: false,
     vrButton: false,
 });
+
+viewer.imageryLayers.addImageryProvider(
+    await Cesium.IonImageryProvider.fromAssetId(3954),
+);
 
 viewer.scene.screenSpaceCameraController.enableZoom = false;
 viewer.scene.screenSpaceCameraController.enableRotate = false;
