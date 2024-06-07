@@ -92,5 +92,5 @@ setTimeout(() => {
     fetchISSLocation();
     updateAstronautDynamicContent();
 }, "3000");
-setInterval(fetchISSLocation, 5000);
+setInterval(fetchISSLocation, 1000);
 fetchISSLocation();
