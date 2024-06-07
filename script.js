@@ -26,11 +26,13 @@ viewer.scene.primitives.add(osmBuildings);
 const positionProperty = new Cesium.SampledPositionProperty();
 
 async function fetchISSLocation() {
-    //const response = await fetch('http://api.open-notify.org/iss-now.json');
-    const response = await fetch('/.netlify/functions/issNow');
+    const response = await fetch('https://api.wheretheiss.at/v1/satellites/25544');
+    //const response = await fetch('/.netlify/functions/issNow');
     const data = await response.json();
-    const latitude = parseFloat(data.iss_position.latitude);
-    const longitude = parseFloat(data.iss_position.longitude);
+    console.log(data)
+    debugger;
+    const latitude = parseFloat(data.latitude);
+    const longitude = parseFloat(data.longitude);
     const position = Cesium.Cartesian3.fromDegrees(longitude, latitude, 400000); // Approximate ISS altitude in meters
 
     const currentTime = Cesium.JulianDate.now();
@@ -42,7 +44,7 @@ async function fetchISSLocation() {
         // If it doesn't exist, create it
         issEntity = viewer.entities.add({
             id: 'iss',
-            description: `Location: (${data.iss_position.longitude}, ${data.iss_position.latitude}, ${400000})`,
+            description: `Location: (${data.longitude}, ${data.latitude}, ${400000})`,
             position: position,
             point: { pixelSize: 10, color: Cesium.Color.RED }
         });
@@ -75,5 +77,5 @@ setTimeout(() => {
     fetchISSLocation();
     updateAstronautDynamicContent();
 }, "3000");
-setInterval(fetchISSLocation, 10000);
+setInterval(fetchISSLocation, 5000);
 fetchISSLocation();
