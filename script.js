@@ -26,10 +26,10 @@ viewer.scene.primitives.add(osmBuildings);
 const positionProperty = new Cesium.SampledPositionProperty();
 
 async function fetchISSLocation() {
-    const response = await fetch('https://api.wheretheiss.at/v1/satellites/25544');
-    //const response = await fetch('/.netlify/functions/issNow');
+    //const response = await fetch('https://api.wheretheiss.at/v1/satellites/25544');
+    const response = await fetch('/.netlify/functions/issNow');
     const data = await response.json();
-    updateLocationDataDiv(data);
+    //updateLocationDataDiv(data);
     const latitude = parseFloat(data.latitude);
     const longitude = parseFloat(data.longitude);
     const position = Cesium.Cartesian3.fromDegrees(longitude, latitude, 400000); // Approximate ISS altitude in meters
