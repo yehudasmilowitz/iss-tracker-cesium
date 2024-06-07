@@ -30,8 +30,8 @@ async function fetchISSLocation() {
     const response = await fetch('/.netlify/functions/issNow');
     const data = await response.json();
     //updateLocationDataDiv(data);
-    const latitude = parseFloat(data.latitude);
-    const longitude = parseFloat(data.longitude);
+    const latitude = parseFloat(data.iss_position.latitude);
+    const longitude = parseFloat(data.iss_position.longitude);
     const position = Cesium.Cartesian3.fromDegrees(longitude, latitude, 400000); // Approximate ISS altitude in meters
 
     const currentTime = Cesium.JulianDate.now();
@@ -43,7 +43,7 @@ async function fetchISSLocation() {
         // If it doesn't exist, create it
         issEntity = viewer.entities.add({
             id: 'iss',
-            description: `Location: (${data.longitude}, ${data.latitude}, ${400000})`,
+            description: `Location: (${data.iss_position.longitude}, ${data.iss_position.latitude}, ${400000})`,
             position: position,
             point: { pixelSize: 10, color: Cesium.Color.RED }
         });
